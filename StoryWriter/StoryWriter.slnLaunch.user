@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "windows https",
+    "Projects": [
+      {
+        "Path": "..\\StoryWriterClient\\StoryWriterClient.csproj",
+        "Action": "Start",
+        "DebugTarget": "Windows Machine"
+      },
+      {
+        "Path": "..\\WebApi\\WebApi.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

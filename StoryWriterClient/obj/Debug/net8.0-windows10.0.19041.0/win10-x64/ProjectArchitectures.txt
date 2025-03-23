@@ -1,0 +1,1 @@
+C:\Users\ablanquaert\Desktop\LedMobile\StoryWriterClient\StoryWriterClient.csproj;x64

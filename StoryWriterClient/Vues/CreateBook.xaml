@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoryWriterClient.Vues.CreateBook">
+
+    <VerticalStackLayout Spacing="25" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+
+        <!-- Titre du livre -->
+        <Label Text="Titre du livre"
+               FontSize="18"
+               HorizontalOptions="Start" />
+
+        <Entry x:Name="TitleEntry"
+               Placeholder="Entrez le titre du livre"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Nom de l'auteur -->
+        <Label Text="Nom de l'auteur"
+               FontSize="18"
+               HorizontalOptions="Start" />
+
+        <Entry x:Name="AuthorEntry"
+               Placeholder="Entrez le nom de l'auteur"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Bouton pour soumettre -->
+        <Button Text="Ajouter le livre"
+                FontSize="16"
+                HorizontalOptions="Center"
+                Clicked="OnAddBookClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>
