@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoryWriterClient.Vues.ChapterEditorPage"
+             Title="Éditeur de chapitre"
+             BackgroundColor="{StaticResource Gray100}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="15">
+
+        <!-- Chapter Number and Name -->
+        <Border StrokeShape="RoundRectangle 10"
+                Stroke="LightGray"
+                BackgroundColor="White"
+                Padding="15"
+                Margin="0,0,0,10">
+            <Grid ColumnDefinitions="80,*" RowDefinitions="Auto,Auto">
+                <Label Text="Numéro"
+                       FontSize="12"
+                       TextColor="Gray"/>
+                <Entry x:Name="ChapterNumberEntry"
+                       Grid.Row="1"
+                       Keyboard="Numeric"
+                       FontSize="16"
+                       Placeholder="1"/>
+
+                <Label Grid.Column="1"
+                       Text="Titre du chapitre"
+                       FontSize="12"
+                       TextColor="Gray"
+                       Margin="10,0,0,0"/>
+                <Entry x:Name="ChapterNameEntry"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       FontSize="16"
+                       Placeholder="Titre du chapitre"
+                       Margin="10,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Toolbar -->
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 10"
+                Stroke="LightGray"
+                BackgroundColor="White"
+                Padding="10"
+                Margin="0,0,0,10">
+            <StackLayout Orientation="Horizontal" Spacing="5">
+                <Button Text="B"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        WidthRequest="40"
+                        HeightRequest="35"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Clicked="OnBoldClicked"/>
+                <Button Text="I"
+                        FontSize="14"
+                        FontAttributes="Italic"
+                        WidthRequest="40"
+                        HeightRequest="35"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Clicked="OnItalicClicked"/>
+                <Button Text="U"
+                        FontSize="14"
+                        WidthRequest="40"
+                        HeightRequest="35"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Clicked="OnUnderlineClicked"/>
+                <BoxView WidthRequest="1" BackgroundColor="LightGray" Margin="5,0"/>
+                <Button Text="H1"
+                        FontSize="12"
+                        WidthRequest="40"
+                        HeightRequest="35"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Clicked="OnH1Clicked"/>
+                <Button Text="H2"
+                        FontSize="12"
+                        WidthRequest="40"
+                        HeightRequest="35"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Clicked="OnH2Clicked"/>
+            </StackLayout>
+        </Border>
+
+        <!-- Rich Text Editor (Quill.js via WebView) -->
+        <Border Grid.Row="2"
+                StrokeShape="RoundRectangle 10"
+                Stroke="LightGray"
+                BackgroundColor="White"
+                Padding="5">
+            <WebView x:Name="RichTextEditor"/>
+        </Border>
+
+        <!-- Action Buttons -->
+        <Grid Grid.Row="3"
+              ColumnDefinitions="*,*"
+              Margin="0,15,0,0">
+            <Button Text="Annuler"
+                    FontSize="16"
+                    BackgroundColor="White"
+                    TextColor="{StaticResource Primary}"
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="1"
+                    CornerRadius="10"
+                    Margin="0,0,5,0"
+                    Clicked="OnCancelClicked"/>
+            <Button x:Name="SaveButton"
+                    Grid.Column="1"
+                    Text="Sauvegarder"
+                    FontSize="16"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Margin="5,0,0,0"
+                    Clicked="OnSaveClicked"/>
+        </Grid>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           Grid.RowSpan="4"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="{StaticResource Primary}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

@@ -1,35 +1,138 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StoryWriterClient.Vues.CreateBook">
+             x:Class="StoryWriterClient.Vues.CreateBook"
+             Title="Nouveau livre"
+             BackgroundColor="{StaticResource Gray100}">
 
-    <VerticalStackLayout Spacing="25" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20">
 
-        <!-- Titre du livre -->
-        <Label Text="Titre du livre"
-               FontSize="18"
-               HorizontalOptions="Start" />
+            <!-- Book Cover Preview -->
+            <Border HorizontalOptions="Center"
+                    WidthRequest="140"
+                    HeightRequest="200"
+                    StrokeShape="RoundRectangle 15"
+                    StrokeThickness="2"
+                    Stroke="{StaticResource Primary}"
+                    BackgroundColor="{StaticResource Primary}"
+                    Margin="0,20,0,30">
+                <Grid>
+                    <Image x:Name="CoverPreview"
+                           Aspect="AspectFill"/>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label x:Name="CoverIcon"
+                               Text="&#x1F4D6;"
+                               FontSize="48"
+                               TextColor="White"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Couverture"
+                               FontSize="12"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               Opacity="0.8"/>
+                    </StackLayout>
+                </Grid>
+            </Border>
 
-        <Entry x:Name="TitleEntry"
-               Placeholder="Entrez le titre du livre"
-               FontSize="16"
-               HorizontalOptions="FillAndExpand" />
+            <!-- Form -->
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="LightGray"
+                    BackgroundColor="White"
+                    Padding="20">
+                <StackLayout Spacing="20">
 
-        <!-- Nom de l'auteur -->
-        <Label Text="Nom de l'auteur"
-               FontSize="18"
-               HorizontalOptions="Start" />
+                    <!-- Title -->
+                    <StackLayout>
+                        <Label Text="Titre du livre *"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="TitleEntry"
+                               FontSize="16"
+                               Placeholder="Entrez le titre du livre"/>
+                    </StackLayout>
 
-        <Entry x:Name="AuthorEntry"
-               Placeholder="Entrez le nom de l'auteur"
-               FontSize="16"
-               HorizontalOptions="FillAndExpand" />
+                    <!-- Author -->
+                    <StackLayout>
+                        <Label Text="Auteur *"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="AuthorEntry"
+                               FontSize="16"
+                               Placeholder="Entrez le nom de l'auteur"/>
+                    </StackLayout>
 
-        <!-- Bouton pour soumettre -->
-        <Button Text="Ajouter le livre"
-                FontSize="16"
-                HorizontalOptions="Center"
-                Clicked="OnAddBookClicked" />
+                    <!-- Synopsis -->
+                    <StackLayout>
+                        <Label Text="Synopsis"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="LightGray"
+                                Padding="10">
+                            <Editor x:Name="SynopsisEditor"
+                                    FontSize="14"
+                                    Placeholder="Résumé de votre livre..."
+                                    HeightRequest="100"
+                                    AutoSize="TextChanges"/>
+                        </Border>
+                    </StackLayout>
 
-    </VerticalStackLayout>
+                    <!-- Cover Image URL -->
+                    <StackLayout>
+                        <Label Text="URL de l'image de couverture"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="CoverUrlEntry"
+                               FontSize="14"
+                               Placeholder="https://example.com/cover.jpg"
+                               Keyboard="Url"
+                               TextChanged="OnCoverUrlChanged"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </Border>
+
+            <!-- Spacer -->
+            <BoxView Grid.Row="2" HeightRequest="20"/>
+
+            <!-- Action Buttons -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*"
+                  Margin="0,0,0,20">
+                <Button Text="Annuler"
+                        FontSize="16"
+                        BackgroundColor="White"
+                        TextColor="{StaticResource Primary}"
+                        BorderColor="{StaticResource Primary}"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        Margin="0,0,5,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Grid.Column="1"
+                        Text="Créer le livre"
+                        FontSize="16"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Margin="5,0,0,0"
+                        Clicked="OnAddBookClicked"/>
+            </Grid>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               Grid.RowSpan="4"
+                               IsRunning="False"
+                               IsVisible="False"
+                               Color="{StaticResource Primary}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>

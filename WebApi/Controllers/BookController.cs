@@ -86,5 +86,169 @@ public class BookController : ControllerBase
         return book;
     }
 
+    // ========== CHAPTER ENDPOINTS ==========
+
+    // Add a chapter to a book
+    [HttpPost("{bookId}/chapters")]
+    public IActionResult AddChapter(string bookId, [FromBody] Chapter chapter)
+    {
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.AddChapter(bookId, chapter);
+            return Ok("Chapter added successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Update a chapter in a book
+    [HttpPut("{bookId}/chapters/{chapterId}")]
+    public IActionResult UpdateChapter(string bookId, string chapterId, [FromBody] Chapter chapter)
+    {
+        if (chapterId != chapter.Id)
+        {
+            return BadRequest("Chapter ID mismatch.");
+        }
+
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.UpdateChapter(bookId, chapter);
+            return Ok("Chapter updated successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Delete a chapter from a book
+    [HttpDelete("{bookId}/chapters/{chapterId}")]
+    public IActionResult DeleteChapter(string bookId, string chapterId)
+    {
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.DeleteChapter(bookId, chapterId);
+            return Ok("Chapter deleted successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Get a specific chapter from a book
+    [HttpGet("{bookId}/chapters/{chapterId}")]
+    public ActionResult<Chapter> GetChapter(string bookId, string chapterId)
+    {
+        var book = BookService.GetBook(bookId);
+        if (book == null)
+        {
+            return NotFound("Book not found.");
+        }
+
+        var chapter = BookService.GetChapter(bookId, chapterId);
+        if (chapter == null)
+        {
+            return NotFound("Chapter not found.");
+        }
+        return chapter;
+    }
+
+    // ========== CHARACTER ENDPOINTS ==========
+
+    // Add a character to a book
+    [HttpPost("{bookId}/characters")]
+    public IActionResult AddCharacter(string bookId, [FromBody] Character character)
+    {
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.AddCharacter(bookId, character);
+            return Ok("Character added successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Update a character in a book
+    [HttpPut("{bookId}/characters/{characterId}")]
+    public IActionResult UpdateCharacter(string bookId, string characterId, [FromBody] Character character)
+    {
+        if (characterId != character.Id)
+        {
+            return BadRequest("Character ID mismatch.");
+        }
+
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.UpdateCharacter(bookId, character);
+            return Ok("Character updated successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Delete a character from a book
+    [HttpDelete("{bookId}/characters/{characterId}")]
+    public IActionResult DeleteCharacter(string bookId, string characterId)
+    {
+        try
+        {
+            var book = BookService.GetBook(bookId);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            BookService.DeleteCharacter(bookId, characterId);
+            return Ok("Character deleted successfully.");
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    // Get all characters from a book
+    [HttpGet("{bookId}/characters")]
+    public ActionResult<List<Character>> GetCharacters(string bookId)
+    {
+        var book = BookService.GetBook(bookId);
+        if (book == null)
+        {
+            return NotFound("Book not found.");
+        }
+
+        return BookService.GetCharacters(bookId) ?? new List<Character>();
+    }
 
 }

@@ -1,0 +1,174 @@
+# Claude Code
+.claude/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Visual Studio cache/options directory
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Publish output
+[Pp]ublish/
+publish/
+
+# NuGet
+*.nupkg
+*.nuget.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
+
+# MAUI specific
+*.apk
+*.aab
+*.ipa
+*.app
+*.msix
+*.msixbundle
+*.appxbundle
+*.appx
+
+# Android specific
+*.keystore
+google-services.json
+
+# iOS specific
+*.mobileprovision
+*.p12
+
+# Application publish profiles
+PublishProfiles/
+
+# Secrets and credentials
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+secrets.json
+*.pfx
+*.snk
+
+# Local environment files
+.env
+.env.*
+local.settings.json
+
+# JetBrains Rider
+*.sln.iml
+
+# Crash logs
+crash.log
+crashlytics-build.properties
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+# Fakes Assemblies
+FakesAssemblies/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary files
+*.tmp
+*.temp

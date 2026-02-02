@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoryWriterClient.Vues.CharacterEditorPage"
+             Title="Fiche personnage"
+             BackgroundColor="{StaticResource Gray100}">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="15">
+
+            <!-- Character Avatar/Preview -->
+            <Border HorizontalOptions="Center"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    StrokeShape="RoundRectangle 50"
+                    StrokeThickness="3"
+                    Stroke="{StaticResource Primary}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Margin="0,10,0,20">
+                <Grid>
+                    <Image x:Name="CharacterImage"
+                           Aspect="AspectFill"/>
+                    <Label x:Name="AvatarIcon"
+                           Text="&#x1F464;"
+                           FontSize="40"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Form -->
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="LightGray"
+                    BackgroundColor="White"
+                    Padding="20"
+                    Margin="0,0,0,15">
+                <StackLayout Spacing="15">
+
+                    <!-- Name -->
+                    <StackLayout>
+                        <Label Text="Nom *"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="NameEntry"
+                               FontSize="16"
+                               Placeholder="Nom du personnage"/>
+                    </StackLayout>
+
+                    <!-- Role Picker -->
+                    <StackLayout>
+                        <Label Text="Rôle"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="LightGray"
+                                Padding="5,0">
+                            <Picker x:Name="RolePicker"
+                                    Title="Sélectionner un rôle"
+                                    FontSize="16">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Protagoniste</x:String>
+                                        <x:String>Antagoniste</x:String>
+                                        <x:String>Secondaire</x:String>
+                                        <x:String>Figurant</x:String>
+                                        <x:String>Mentor</x:String>
+                                        <x:String>Allié</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Description -->
+                    <StackLayout>
+                        <Label Text="Description"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="LightGray"
+                                Padding="10">
+                            <Editor x:Name="DescriptionEditor"
+                                    FontSize="14"
+                                    Placeholder="Décrivez le personnage (apparence, personnalité...)"
+                                    HeightRequest="100"
+                                    AutoSize="TextChanges"/>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Traits -->
+                    <StackLayout>
+                        <Label Text="Traits de caractère"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="TraitsEntry"
+                               FontSize="14"
+                               Placeholder="Courageux, loyal, impulsif... (séparés par des virgules)"/>
+                        <FlexLayout x:Name="TraitsContainer"
+                                    Wrap="Wrap"
+                                    Margin="0,10,0,0"/>
+                    </StackLayout>
+
+                    <!-- Notes -->
+                    <StackLayout>
+                        <Label Text="Notes"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="LightGray"
+                                Padding="10">
+                            <Editor x:Name="NotesEditor"
+                                    FontSize="14"
+                                    Placeholder="Notes supplémentaires, backstory, relations..."
+                                    HeightRequest="80"
+                                    AutoSize="TextChanges"/>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Image URL -->
+                    <StackLayout>
+                        <Label Text="URL de l'image"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="Gray"/>
+                        <Entry x:Name="ImageUrlEntry"
+                               FontSize="14"
+                               Placeholder="https://example.com/image.jpg"
+                               Keyboard="Url"
+                               TextChanged="OnImageUrlChanged"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </Border>
+
+            <!-- Spacer for scrolling -->
+            <BoxView Grid.Row="2" HeightRequest="20"/>
+
+            <!-- Action Buttons -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*"
+                  Margin="0,0,0,20">
+                <Button Text="Annuler"
+                        FontSize="16"
+                        BackgroundColor="White"
+                        TextColor="{StaticResource Primary}"
+                        BorderColor="{StaticResource Primary}"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        Margin="0,0,5,0"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+                        Grid.Column="1"
+                        Text="Sauvegarder"
+                        FontSize="16"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Margin="5,0,0,0"
+                        Clicked="OnSaveClicked"/>
+            </Grid>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               Grid.RowSpan="4"
+                               IsRunning="False"
+                               IsVisible="False"
+                               Color="{StaticResource Primary}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

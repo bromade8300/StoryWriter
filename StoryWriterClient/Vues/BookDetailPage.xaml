@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoryWriterClient.Vues.BookDetailPage"
+             Title="Détail du livre"
+             BackgroundColor="{StaticResource Gray100}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Header with Book Info -->
+        <Border Grid.Row="0"
+                Margin="15"
+                Padding="20"
+                StrokeShape="RoundRectangle 15"
+                Stroke="LightGray"
+                BackgroundColor="White">
+            <Grid ColumnDefinitions="120,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                <!-- Cover -->
+                <Border Grid.RowSpan="4"
+                        WidthRequest="100"
+                        HeightRequest="140"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource Primary}"
+                        Margin="0,0,15,0">
+                    <Grid>
+                        <Image x:Name="CoverImage"
+                               Aspect="AspectFill"/>
+                        <Label Text="&#x1F4D6;"
+                               FontSize="36"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Book Info -->
+                <Label x:Name="TitleLabel"
+                       Grid.Column="1"
+                       FontSize="22"
+                       FontAttributes="Bold"/>
+                <Label x:Name="AuthorLabel"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       FontSize="16"
+                       TextColor="Gray"
+                       Margin="0,5,0,10"/>
+                <Label x:Name="SynopsisLabel"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       FontSize="13"
+                       TextColor="DimGray"
+                       MaxLines="3"
+                       LineBreakMode="TailTruncation"/>
+                <StackLayout Grid.Row="3"
+                             Grid.Column="1"
+                             Orientation="Horizontal"
+                             Margin="0,10,0,0">
+                    <Label x:Name="ChapterCountLabel"
+                           FontSize="12"
+                           TextColor="{StaticResource Primary}"/>
+                    <Label Text=" | "
+                           FontSize="12"
+                           TextColor="LightGray"/>
+                    <Label x:Name="CharacterCountLabel"
+                           FontSize="12"
+                           TextColor="{StaticResource Primary}"/>
+                </StackLayout>
+
+                <!-- Action Buttons -->
+                <StackLayout Grid.Column="2"
+                             Grid.RowSpan="4"
+                             VerticalOptions="Start"
+                             Spacing="10">
+                    <Button Text="&#x270F;"
+                            FontSize="16"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            Clicked="OnEditBookClicked"/>
+                    <Button Text="&#x1F5D1;"
+                            FontSize="16"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            BackgroundColor="#FF5252"
+                            TextColor="White"
+                            Clicked="OnDeleteBookClicked"/>
+                </StackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Tabs -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*"
+              Margin="15,0">
+            <Button x:Name="ChaptersTabButton"
+                    Text="Chapitres"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnChaptersTabClicked"/>
+            <Button x:Name="CharactersTabButton"
+                    Grid.Column="1"
+                    Text="Personnages"
+                    FontSize="14"
+                    BackgroundColor="White"
+                    TextColor="{StaticResource Primary}"
+                    CornerRadius="10"
+                    Clicked="OnCharactersTabClicked"/>
+        </Grid>
+
+        <!-- Content Area -->
+        <Grid Grid.Row="2" Margin="15,10,15,15">
+
+            <!-- Chapters List -->
+            <Border x:Name="ChaptersSection"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="LightGray"
+                    BackgroundColor="White"
+                    Padding="10">
+                <Grid RowDefinitions="Auto,*">
+                    <Button Text="+ Ajouter un chapitre"
+                            FontSize="14"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource Primary}"
+                            HorizontalOptions="End"
+                            Clicked="OnAddChapterClicked"/>
+
+                    <CollectionView x:Name="ChaptersCollectionView"
+                                    Grid.Row="1"
+                                    SelectionMode="Single"
+                                    SelectionChanged="OnChapterSelected">
+                        <CollectionView.EmptyView>
+                            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                                <Label Text="Aucun chapitre" FontSize="16" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Text="Ajoutez votre premier chapitre" FontSize="12" TextColor="LightGray" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Supprimer"
+                                                       BackgroundColor="#FF5252"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteChapterCommand}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Border Margin="5"
+                                            Padding="15"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="LightGray"
+                                            BackgroundColor="{StaticResource Gray100}">
+                                        <Grid ColumnDefinitions="50,*">
+                                            <Border WidthRequest="40"
+                                                    HeightRequest="40"
+                                                    StrokeShape="RoundRectangle 20"
+                                                    StrokeThickness="0"
+                                                    BackgroundColor="{StaticResource Primary}">
+                                                <Label Text="{Binding Number}"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                                            </Border>
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="15"
+                                                       FontAttributes="Bold"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Border>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+
+            <!-- Characters List -->
+            <Border x:Name="CharactersSection"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="LightGray"
+                    BackgroundColor="White"
+                    Padding="10"
+                    IsVisible="False">
+                <Grid RowDefinitions="Auto,*">
+                    <Button Text="+ Ajouter un personnage"
+                            FontSize="14"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource Primary}"
+                            HorizontalOptions="End"
+                            Clicked="OnAddCharacterClicked"/>
+
+                    <CollectionView x:Name="CharactersCollectionView"
+                                    Grid.Row="1"
+                                    SelectionMode="Single"
+                                    SelectionChanged="OnCharacterSelected">
+                        <CollectionView.EmptyView>
+                            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                                <Label Text="Aucun personnage" FontSize="16" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Text="Créez vos personnages" FontSize="12" TextColor="LightGray" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Supprimer"
+                                                       BackgroundColor="#FF5252"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCharacterCommand}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Border Margin="5"
+                                            Padding="15"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="LightGray"
+                                            BackgroundColor="{StaticResource Gray100}">
+                                        <Grid ColumnDefinitions="50,*">
+                                            <Border WidthRequest="40"
+                                                    HeightRequest="40"
+                                                    StrokeShape="RoundRectangle 20"
+                                                    StrokeThickness="0"
+                                                    BackgroundColor="{StaticResource Secondary}">
+                                                <Label Text="&#x1F464;"
+                                                       FontSize="18"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                                            </Border>
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="15"
+                                                       FontAttributes="Bold"/>
+                                                <Label Text="{Binding Role}"
+                                                       FontSize="12"
+                                                       TextColor="Gray"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Border>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           Grid.RowSpan="3"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="{StaticResource Primary}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

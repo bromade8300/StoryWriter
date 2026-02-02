@@ -17,6 +17,6 @@ namespace StoryWriter.Classes
         public int Number { get; set; }
         
         [BsonElement("Content")]
-        public int Content { get; set; }
+        public string? Content { get; set; }
     }
 }
